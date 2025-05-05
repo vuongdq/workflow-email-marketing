@@ -1,0 +1,300 @@
+:root {
+  --primary: #4cd964;
+  --primary-dark: #36b37e;
+  --bg-main: #f8fafb;
+  --bg-sidebar: #fff;
+  --bg-rightbar: #f9fafb;
+  --border: #e5e7eb;
+  --shadow: 0 2px 12px rgba(76,217,100,0.07);
+  --radius: 18px;
+  --font: 'Inter', 'SF Pro Display', Arial, sans-serif;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg-main);
+  margin: 0;
+  color: #222;
+}
+
+.app-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-main);
+  transition: all 0.3s cubic-bezier(.4,0,.2,1);
+}
+
+.app-container.has-editor {
+  /* Khi có NodeEditor, giữ layout 3 cột */
+}
+
+.sidebar {
+  width: 250px;
+  background: var(--bg-sidebar);
+  border-right: 1.5px solid var(--border);
+  padding: 32px 24px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 2;
+  box-shadow: var(--shadow);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.sidebar h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 28px;
+  color: var(--primary);
+  letter-spacing: 0.5px;
+}
+
+.sidebar button {
+  padding: 14px 0;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 1.08rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(76,217,100,0.10);
+  letter-spacing: 0.2px;
+}
+
+.sidebar button:hover {
+  background: var(--primary-dark);
+  box-shadow: 0 4px 16px rgba(76,217,100,0.13);
+}
+
+.workflow-main-area {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  background: var(--bg-main);
+  z-index: 1;
+  padding: 40px 0 40px 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  transition: all 0.3s cubic-bezier(.4,0,.2,1);
+}
+
+.workflow-main-area.full {
+  flex: 1 1 0%;
+  width: 100%;
+  padding-right: 0;
+}
+
+.react-flow__renderer {
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background: #fff !important;
+}
+
+.workflow-rightbar {
+  width: 420px;
+  height: 100%;
+  background: var(--bg-rightbar);
+  border-left: 1.5px solid var(--border);
+  box-shadow: -2px 0 12px rgba(76,217,100,0.07);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  transition: all 0.3s cubic-bezier(.4,0,.2,1);
+  padding: 40px 36px;
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+
+.app-container:not(.has-editor) .workflow-rightbar {
+  display: none !important;
+}
+
+.flow-area {
+  flex: 1;
+  height: 100%;
+  transition: all 0.3s ease-out;
+}
+
+.flow-area-shrink {
+  flex: 0.6; /* Thu nhỏ flow area khi editor hiển thị */
+}
+
+.editor-area {
+  width: 400px;
+  height: 100%;
+  border-left: 1px solid #ddd;
+  background: white;
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Đảm bảo ReactFlow container không bị overflow */
+.react-flow__container {
+  width: 100%;
+  height: 100%;
+}
+
+/* Tùy chỉnh style cho node */
+.custom-node {
+  padding: 22px 32px;
+  border-radius: 32px;
+  background: #fff;
+  border: 2px solid var(--border);
+  box-shadow: 0 2px 12px rgba(76,217,100,0.08);
+  font-size: 1.12rem;
+  color: #222;
+  font-weight: 600;
+  min-width: 200px;
+  text-align: left;
+  transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+  position: relative;
+  margin-bottom: 8px;
+  letter-spacing: 0.1px;
+}
+
+.custom-node:hover {
+  box-shadow: 0 6px 24px rgba(76,217,100,0.15);
+  border-color: var(--primary);
+  background: #f3fff7;
+}
+
+/* Nút bấm hiện đại cho NodeEditor */
+.button-group button {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1.08rem;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  margin-right: 12px;
+  letter-spacing: 0.2px;
+}
+
+.button-group button:first-of-type {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 2px 8px rgba(76,217,100,0.10);
+}
+
+.button-group button:first-of-type:hover {
+  background: var(--primary-dark);
+  box-shadow: 0 4px 16px rgba(76,217,100,0.13);
+}
+
+.button-group button:last-of-type {
+  background: #e5e7eb;
+  color: #333;
+}
+
+.button-group button:last-of-type:hover {
+  background: #d1d5db;
+}
+
+/* NodeEditor hiện đại hơn */
+.node-editor {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 0;
+  margin: 0;
+  height: auto;
+  min-height: 320px;
+}
+
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 28px 0 12px 0;
+  border-bottom: 1.5px solid var(--border);
+}
+
+.editor-header h3 {
+  margin: 0;
+  font-size: 1.22rem;
+  color: #222;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: #8e8e93;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s, color 0.2s;
+}
+
+.close-button:hover {
+  background: #e5fbe9;
+  color: var(--primary);
+}
+
+.editor-content {
+  padding: 22px 0 0 0;
+}
+
+.field-group {
+  margin-bottom: 28px;
+}
+
+.field-group label {
+  display: block;
+  margin-bottom: 9px;
+  font-weight: 700;
+  color: #444;
+  letter-spacing: 0.1px;
+}
+
+.field-group input,
+.field-group select {
+  width: 100%;
+  padding: 13px;
+  border: 2px solid var(--border);
+  border-radius: 999px;
+  font-size: 1.08rem;
+  background: #f9fafb;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.field-group input:focus,
+.field-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(76,217,100,0.13);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: #f3f4f6;
+}
+::-webkit-scrollbar-thumb {
+  background: #e5e7eb;
+  border-radius: 8px;
+}
+
+/* Animation cho editor area */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
